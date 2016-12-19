@@ -1,4 +1,4 @@
-# PerfectTemplate [简体中文](README.zh_CN.md)
+# Perfect Sessions Demo, Memory Driver
 
 <p align="center">
     <a href="http://perfect.org/get-involved.html" target="_blank">
@@ -39,9 +39,7 @@
     </a>
 </p>
 
-Perfect Empty Starter Project
-
-This repository holds a blank Perfect project which can be cloned to serve as a starter for new work. It builds with Swift Package Manager and produces a stand-alone HTTP executable.
+This demo shows usage of Perfect Sessions with the Memory Driver.
 
 ## Compatibility with Swift
 
@@ -49,13 +47,31 @@ The master branch of this project currently compiles with **Xcode 8.1** or the *
 
 ## Building & Running
 
+This project demonstrates the sessions by setting a very short (10 second) session idle expiry timeout.
+
+The Session ID and stored session data is displayed on the page. Refresh the page to see more random data added to the session. Wait for over 10 seconds and refresh, a new session is started and displayed.
+
+### Xcode
+
+We suggest using the [Perfect Assistant](http://perfect.org/en/assistant/) for managing Server Side Swift projects. 
+
+In Perfect Assistant, click "Create New Project", and select "Custom repository URL". Choose a location for the project, and enter this URL for "Repository URL": `https://github.com/PerfectExamples/Perfect-Session-Memory-Demo.git`
+
+Once the project has been created, click the "Build > Local" button. This will download all dependencies and create an Xcode Project file for you.
+
+Open this project file, then select the "Executable" scheme (with the black icon).
+
+Now, run the project.
+
+### Terminal
+
 The following will clone and build an empty starter project and launch the server on port 8181.
 
 ```
-git clone https://github.com/PerfectlySoft/PerfectTemplate.git
-cd PerfectTemplate
+git clone https://github.com/PerfectExamples/Perfect-Session-Memory-Demo.git
+cd Perfect-Session-Memory-Demo
 swift build
-.build/debug/PerfectTemplate
+.build/debug/Perfect-Session-Memory-Demo
 ```
 
 You should see the following output:
@@ -66,50 +82,6 @@ Starting HTTP server on 0.0.0.0:8181 with document root ./webroot
 
 This means the server is running and waiting for connections. Access [http://localhost:8181/](http://127.0.0.1:8181/) to see the greeting. Hit control-c to terminate the server.
 
-## Starter Content
-
-The template file contains a very simple "hello, world!" example.
-
-```swift
-import PerfectLib
-import PerfectHTTP
-import PerfectHTTPServer
-
-// Create HTTP server.
-let server = HTTPServer()
-
-// Register your own routes and handlers
-var routes = Routes()
-routes.add(method: .get, uri: "/", handler: {
-		request, response in
-		response.appendBody(string: "<html><title>Hello, world!</title><body>Hello, world!</body></html>")
-		response.completed()
-	}
-)
-
-// Add the routes to the server.
-server.addRoutes(routes)
-
-// Set a listen port of 8181
-server.serverPort = 8181
-
-// Set a document root.
-// This is optional. If you do not want to serve static content then do not set this.
-// Setting the document root will automatically add a static file handler for the route /**
-server.documentRoot = "./webroot"
-
-// Gather command line options and further configure the server.
-// Run the server with --help to see the list of supported arguments.
-// Command line arguments will supplant any of the values set above.
-configureServer(server)
-
-do {
-	// Launch the HTTP server.
-	try server.start()
-} catch PerfectError.networkError(let err, let msg) {
-	print("Network error thrown: \(err) \(msg)")
-}
-```
 
 
 ## Issues
