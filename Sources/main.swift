@@ -34,7 +34,6 @@ server.setResponseFilters([sessionDriver.responseFilter])
 
 server.addRoutes(makeWebDemoRoutes())
 server.serverPort = 8181
-server.documentRoot = "./webroot"
 
 do {
 	// Launch the HTTP server.
