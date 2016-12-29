@@ -25,7 +25,13 @@ import PerfectSession
 let server = HTTPServer()
 
 SessionConfig.name = "TestingMemoryDrivers"
-SessionConfig.idle = 10
+SessionConfig.idle = 60
+
+// Optional
+SessionConfig.cookieDomain = "localhost"
+SessionConfig.IPAddressLock = true
+SessionConfig.userAgentLock = true
+
 
 let sessionDriver = SessionMemoryDriver()
 

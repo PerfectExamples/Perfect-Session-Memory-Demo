@@ -22,7 +22,12 @@ public class WebHandlers {
 
 		request.session.data[rand.secureToken] = rand.secureToken
 
-		let dump = try? request.session.data.jsonEncodedString()
+		var dump = ""
+		do {
+			dump = try request.session.data.jsonEncodedString()
+		} catch {
+			dump = "\(error)"
+		}
 
 		let body = "<p>Your Session ID is: <code>\(request.session.token)</code></p><p>Session data: <code>\(dump)</code></p>"
 
