@@ -35,10 +35,19 @@ public class WebHandlers {
 
 		response.setBody(string: header+body+footer)
 		response.completed()
-
-
+		
+		
 	}
+	
+	open static func CORSHandlerGet(request: HTTPRequest, _ response: HTTPResponse) {
 
+		response.addHeader(.contentType, value: "application/json")
+		try? response.setBody(json: ["Success":"CORS Request"])
+		response.completed()
+		
+		
+	}
+	
 
 
 	/* =================================================================================================================

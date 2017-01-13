@@ -21,6 +21,9 @@ import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
 import PerfectSession
+import PerfectRequestLogger
+
+RequestLogFile.location = "./log.log"
 
 let server = HTTPServer()
 
@@ -31,12 +34,28 @@ SessionConfig.idle = 3600
 SessionConfig.cookieDomain = "localhost"
 SessionConfig.IPAddressLock = true
 SessionConfig.userAgentLock = true
-SessionConfig.CSRFCheckState = true
+SessionConfig.CSRF.checkState = true
+
+SessionConfig.CORS.enabled = true
+SessionConfig.CORS.acceptableHostnames.append("http://www.test-cors.org")
+//SessionConfig.CORS.acceptableHostnames.append("*.test-cors.org")
+SessionConfig.CORS.maxAge = 60
+
 
 let sessionDriver = SessionMemoryDriver()
 
 server.setRequestFilters([sessionDriver.requestFilter])
 server.setResponseFilters([sessionDriver.responseFilter])
+
+// Instantiate a logger
+let myLogger = RequestLogger()
+
+// Add the filters
+// Request filter at high priority to be executed first
+server.setRequestFilters([(myLogger, .high)])
+// Response filter at low priority to be executed last
+server.setResponseFilters([(myLogger, .low)])
+
 
 server.addRoutes(makeWebDemoRoutes())
 server.serverPort = 8181
