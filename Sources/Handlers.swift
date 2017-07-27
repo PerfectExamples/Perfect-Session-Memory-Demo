@@ -10,7 +10,6 @@
 import PerfectLib
 import PerfectHTTP
 import PerfectSession
-import TurnstileCrypto
 
 public class WebHandlers {
 	/* =================================================================================================================
@@ -24,9 +23,9 @@ public class WebHandlers {
 			return response.completed()
 		}
 		
-		let rand = URandom()
-
-		session.data[rand.secureToken] = rand.secureToken
+//		let rand = URandom()
+//
+//		session.data[rand.secureToken] = rand.secureToken
 
 		var dump = ""
 		do {
