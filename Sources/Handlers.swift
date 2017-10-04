@@ -17,15 +17,11 @@ public class WebHandlers {
 	================================================================================================================= */
 	open static func indexHandlerGet(request: HTTPRequest, _ response: HTTPResponse) {
 
-		guard var session = request.session else {
+		guard let session = request.session else {
 			let body = "<p>There is no session for this request.</p>"
 			response.setBody(string: header+body+footer)
 			return response.completed()
 		}
-		
-//		let rand = URandom()
-//
-//		session.data[rand.secureToken] = rand.secureToken
 
 		var dump = ""
 		do {
@@ -52,7 +48,7 @@ public class WebHandlers {
 	open static func CORSHandlerGet(request: HTTPRequest, _ response: HTTPResponse) {
 
 		response.addHeader(.contentType, value: "application/json")
-		try? response.setBody(json: ["Success":"CORS Request"])
+		let _ = try? response.setBody(json: ["Success":"CORS Request"])
 		response.completed()
 		
 	}
